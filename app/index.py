@@ -57,4 +57,3 @@ while True:
     except Exception as exception:
         message = getattr(exception, 'message', repr(exception))
         print('Invalid input: ' + message)
-        raise exception
