@@ -128,6 +128,9 @@ def find_implicants(var_dict, variables, count):
 
     implicants_dict_pure.update(unglued_dict)
 
+    if not glued_indices and unglued_indices:
+        return var_dict
+
     return var_dict.update(unglued_dict) \
         if not find_implicants(implicants_dict_pure, variables, count - 1) \
         else find_implicants(implicants_dict_pure, variables, count - 1)
