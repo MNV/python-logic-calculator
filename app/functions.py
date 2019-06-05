@@ -1,23 +1,30 @@
 import itertools
+from typing import List, Dict
+
+import pandas
 
 
-def nand(a, b):
+def nand(a: bool, b: bool) -> bool:
+    """Sheffer stroke (AND-NOT)"""
     return not (a and b)
 
 
-def nor(a, b):
+def nor(a: bool, b: bool) -> bool:
+    """Peirce arrow (OR-NOT)"""
     return not (a or b)
 
 
-def implies(a, b):
+def implies(a: bool, b: bool) -> bool:
+    """Implication (IF...THEN)"""
     return (not a) or b
 
 
-def xor(a, b):
+def xor(a: bool, b: bool) -> bool:
+    """Exclusive or (XOR)"""
     return a ^ b
 
 
-def get_pdnf(data_frame, function_name, variables):
+def get_pdnf(data_frame: pandas.DataFrame, function_name: str, variables: List[str]) -> str:
     """Calculates the prime disjunctive normal form (PDNF)"""
     result_batch = []
     for index, row in data_frame.iterrows():
@@ -30,7 +37,7 @@ def get_pdnf(data_frame, function_name, variables):
     return ' ∨ '.join(result_batch)
 
 
-def get_pcnf(data_frame, function_name, variables):
+def get_pcnf(data_frame: pandas.DataFrame, function_name: str, variables: List[str]) -> str:
     """Calculates the prime conjunctive normal form (PCNF)"""
     result_batch = []
     for index, row in data_frame.iterrows():
@@ -43,7 +50,7 @@ def get_pcnf(data_frame, function_name, variables):
     return ' ∧ '.join(result_batch) if result_batch else 'Does not exist.'
 
 
-def get_mdnf(data_frame, function_name, variables):
+def get_mdnf(data_frame: pandas.DataFrame, function_name: str, variables: List[str]) -> str:
     """Calculates the minimal disjunctive normal form"""
     vars_dict = {}
     for index, row in data_frame.iterrows():
@@ -77,8 +84,8 @@ def get_mdnf(data_frame, function_name, variables):
     return ' ∨ '.join(result_batch)
 
 
-def find_implicants(var_dict, variables, count):
-
+def find_implicants(var_dict: Dict, variables: List[str], count: int) -> Dict:
+    """Finds the implicants for given terms"""
     if count < 1:
         return var_dict
 
@@ -136,7 +143,8 @@ def find_implicants(var_dict, variables, count):
         else find_implicants(implicants_dict_pure, variables, count - 1)
 
 
-def find_optimal_coverage(implicants_dict):
+def find_optimal_coverage(implicants_dict: Dict) -> Dict:
+    """Finds the optimal implicants combination covering all the terms"""
     indices = list(set(flatten(list(implicants_dict.keys()))))
     #print('indices: ')
     #print(indices)
@@ -168,6 +176,7 @@ def find_optimal_coverage(implicants_dict):
 
 
 def flatten(list_to_flatten):
+    """Flatten the given nested structure"""
     if not isinstance(list_to_flatten, (list, tuple)):
         return list_to_flatten
 
