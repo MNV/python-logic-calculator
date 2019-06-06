@@ -27,10 +27,10 @@ Examples:
            (x | y) ∨ (x ↓ z)
            
         3. implies(nand(x,y), nand(x,z))
-           (x|y) → (x|z)
+           (x | y) → (x | z)
            
         4. implies(not(x or y), nand(y,z))
-           ¬(x ∨ y) → (y|z)
+           ¬(x ∨ y) → (y | z)
            
         5. xor(xor(1, x and y), x and z)
            1 ⊕ xy ⊕ xz
@@ -48,7 +48,7 @@ Examples:
            (xz) → (z ∨ y)
             
         10. nand(x,y) or nor(x, implies(x, a) == implies(xor(implies(x, z), implies(y, not(g))), not(r)))
-            (x | y ∨ (x ↓ ((x → a) ≡ ((x → z) ⊕ (y → ¬g)) → ¬r)))
+            (x | y ∨ (x ↓ ((x → a) ~ ((x → z) ⊕ (y → ¬g)) → ¬r)))
         """
 
     def get_welcome_message(self) -> str:
